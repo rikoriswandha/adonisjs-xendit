@@ -72,7 +72,7 @@ export async function configure(command: Configure) {
     variables: {
       XENDIT_SECRET_KEY: 'Env.schema.string()',
       XENDIT_ENVIRONMENT: "Env.schema.enum(['sandbox', 'production'] as const)",
-      XENDIT_CALLBACK_TOKEN: 'Env.schema.string().optional()',
+      XENDIT_CALLBACK_TOKEN: 'Env.schema.string.optional()',
     },
   })
 
