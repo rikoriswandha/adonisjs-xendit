@@ -14,8 +14,11 @@
 
 import { access } from 'node:fs/promises'
 import { constants } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
 import type Configure from '@adonisjs/core/commands/configure'
-import { stubsRoot } from './stubs/main.ts'
+
+const stubsRoot = join(dirname(fileURLToPath(import.meta.url)), 'stubs')
 
 /**
  * Configures the adonisjs-xendit package
@@ -54,13 +57,23 @@ export async function configure(command: Configure) {
     command.logger.success('Created config/xendit.ts')
   }
 
-  /**
-   * Define env variables
-   */
-  await codemods.defineEnvVariables({
-    XENDIT_SECRET_KEY: secretKey,
-    XENDIT_ENVIRONMENT: 'sandbox',
-    XENDIT_CALLBACK_TOKEN: '',
+  await codemods.defineEnvVariables(
+    {
+      XENDIT_SECRET_KEY: secretKey,
+      XENDIT_ENVIRONMENT: 'sandbox',
+      XENDIT_CALLBACK_TOKEN: '',
+    },
+    {
+      omitFromExample: ['XENDIT_SECRET_KEY', 'XENDIT_CALLBACK_TOKEN'],
+    }
+  )
+
+  await codemods.defineEnvValidations({
+    variables: {
+      XENDIT_SECRET_KEY: 'Env.schema.string()',
+      XENDIT_ENVIRONMENT: "Env.schema.enum(['sandbox', 'production'] as const)",
+      XENDIT_CALLBACK_TOKEN: 'Env.schema.string().optional()',
+    },
   })
 
   /**

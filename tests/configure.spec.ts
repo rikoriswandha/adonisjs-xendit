@@ -57,6 +57,9 @@ test.group('Configure', (group) => {
     await assert.fileContains('.env', 'XENDIT_SECRET_KEY')
     await assert.fileContains('.env', 'XENDIT_ENVIRONMENT=sandbox')
     await assert.fileContains('.env', 'XENDIT_CALLBACK_TOKEN')
+    await assert.fileContains('start/env.ts', 'XENDIT_SECRET_KEY: Env.schema.string()')
+    await assert.fileContains('start/env.ts', 'XENDIT_ENVIRONMENT')
+    await assert.fileContains('start/env.ts', 'XENDIT_CALLBACK_TOKEN')
   })
 
   test('prompts to overwrite existing config file', async ({ assert, fs }) => {

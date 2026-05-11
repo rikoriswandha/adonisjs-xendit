@@ -1,5 +1,8 @@
+import { fileURLToPath } from 'node:url'
+import { dirname } from 'node:path'
+
 /**
- * Path to the root directory where the stubs are stored. We use
- * this path within commands and the configure hook
+ * Path to the root directory where the stubs are stored.
+ * Computed from import.meta.url so it remains correct after bundling.
  */
-export const stubsRoot = import.meta.dirname
+export const stubsRoot = dirname(fileURLToPath(import.meta.url))

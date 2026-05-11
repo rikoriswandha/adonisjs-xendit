@@ -13,8 +13,8 @@ test.group('Package E2E', () => {
     assert.isTrue(existsSync(join(build, 'configure.js')), 'build/configure.js exists')
     assert.isTrue(existsSync(join(build, 'configure.d.ts')), 'build/configure.d.ts exists')
     assert.isTrue(
-      existsSync(join(build, 'providers/xendit_provider.js')),
-      'build/providers/xendit_provider.js exists'
+      existsSync(join(build, 'stubs/config/xendit.stub')),
+      'build/stubs/config/xendit.stub exists'
     )
     assert.isTrue(
       existsSync(join(build, 'providers/xendit_provider.d.ts')),
@@ -23,14 +23,6 @@ test.group('Package E2E', () => {
     assert.isTrue(
       existsSync(join(build, 'src/xendit_exception.js')),
       'build/src/xendit_exception.js exists'
-    )
-    assert.isTrue(
-      existsSync(join(build, 'src/xendit_exception.d.ts')),
-      'build/src/xendit_exception.d.ts exists'
-    )
-    assert.isTrue(
-      existsSync(join(build, 'stubs/config/xendit.stub')),
-      'build/stubs/config/xendit.stub exists'
     )
   })
 

@@ -3,5 +3,11 @@
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "./build"
-  }
+  },
+  "exclude": [
+    "tests",
+    "node_modules",
+    "build",
+    "bin"
+  ]
 }
