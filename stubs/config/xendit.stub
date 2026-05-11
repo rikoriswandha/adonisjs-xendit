@@ -1,0 +1,12 @@
+{{{
+  exports({ to: app.configPath('xendit.ts') })
+}}}
+import env from '#start/env'
+import { defineConfig } from 'adonisjs-xendit'
+
+export default defineConfig({
+  secretKey: env.get('XENDIT_SECRET_KEY'),
+  environment: env.get('XENDIT_ENVIRONMENT', 'sandbox'),
+  callbackToken: env.get('XENDIT_CALLBACK_TOKEN'),
+  timeoutMs: 30000,
+})
