@@ -113,6 +113,13 @@ test.group('XenditWebhook.parseEvent', () => {
     assert.throws(() => XenditWebhook.parseEvent('not json'), SyntaxError)
   })
 
+  test('throws on invalid webhook shape', ({ assert }) => {
+    assert.throws(
+      () => XenditWebhook.parseEvent(JSON.stringify({ data: { id: 'inv_123' } })),
+      TypeError
+    )
+  })
+
   test('handles deeply nested data', ({ assert }) => {
     const payload = JSON.stringify({
       event: 'invoice.paid',

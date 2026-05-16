@@ -7,7 +7,7 @@ AdonisJS v7 package for [Xendit](https://www.xendit.co/) payment gateway integra
 - **9 Payment Products** — Invoice, Virtual Account, E-Wallet, QRIS, Retail Outlet, Credit Card, Direct Debit, Disbursement, Balance
 - **Type-safe** — Full TypeScript types for all request/response shapes
 - **IoC Container Integration** — `xendit.manager` singleton registered via provider
-- **Webhook Helpers** — Built-in webhook payload validation with callback token verification
+- **Webhook Helpers** — Built-in webhook payload parsing with callback token verification
 - **Configurable** — `node ace configure` prompts for API key and generates config
 - **Error Handling** — Custom `XenditException` with structured error responses
 

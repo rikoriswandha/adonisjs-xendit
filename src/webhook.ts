@@ -16,7 +16,17 @@ export class XenditWebhook {
   }
 
   static parseEvent(payload: string): XenditWebhookEvent {
-    const parsed = JSON.parse(payload) as XenditWebhookEvent
-    return parsed
+    const parsed = JSON.parse(payload) as Partial<XenditWebhookEvent>
+
+    if (
+      typeof parsed !== 'object' ||
+      parsed === null ||
+      typeof parsed.event !== 'string' ||
+      !('data' in parsed)
+    ) {
+      throw new TypeError('Invalid Xendit webhook payload')
+    }
+
+    return parsed as XenditWebhookEvent
   }
 }

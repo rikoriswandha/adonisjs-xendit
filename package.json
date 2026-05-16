@@ -24,7 +24,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "quick:test": "node --import=@poppinss/ts-exec --enable-source-maps bin/test.ts",
-    "pretest": "npm run lint",
+    "pretest": "npm run build",
     "test": "c8 npm run quick:test",
     "precompile": "npm run lint",
     "compile": "tsdown && tsc --emitDeclarationOnly --declaration",
