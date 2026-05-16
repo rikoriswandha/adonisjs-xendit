@@ -82,7 +82,7 @@ test.group('XenditHttpClient', (group) => {
     await client.request('GET', '/v2/invoices/test')
 
     assert.equal(capturedRequest.headers.get('xendit-lib'), 'adonisjs')
-    assert.equal(capturedRequest.headers.get('xendit-lib-ver'), '0.0.0')
+    assert.equal(capturedRequest.headers.get('xendit-lib-ver'), '0.1.0')
   })
 
   test('send idempotency-key header when provided', async ({ assert }) => {

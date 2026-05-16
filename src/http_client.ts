@@ -10,7 +10,7 @@ import {
 } from './xendit_exception.ts'
 
 const LIBRARY_NAME = 'adonisjs'
-const LIBRARY_VERSION = '0.0.0'
+const LIBRARY_VERSION = '0.1.0'
 
 export interface XenditHttpClientOptions {
   baseUrl: string
