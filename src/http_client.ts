@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { join, dirname } from 'node:path'
 import type { XenditApiError } from './types.ts'
 import {
   XenditAuthenticationError,
@@ -9,8 +12,15 @@ import {
   XenditValidationError,
 } from './xendit_exception.ts'
 
-const LIBRARY_NAME = 'adonisjs'
-const LIBRARY_VERSION = '0.1.0'
+const LIBRARY_VERSION = (() => {
+  try {
+    return JSON.parse(
+      readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'package.json'), 'utf8')
+    ).version as string
+  } catch {
+    return 'unknown'
+  }
+})()
 
 export interface XenditHttpClientOptions {
   baseUrl: string
@@ -99,7 +109,7 @@ export class XenditHttpClient {
 
   #addTrackingHeaders(): Record<string, string> {
     return {
-      'xendit-lib': LIBRARY_NAME,
+      'xendit-lib': 'adonisjs',
       'xendit-lib-ver': LIBRARY_VERSION,
     }
   }

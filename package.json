@@ -34,12 +34,29 @@
     "version": "npm run build",
     "prepublishOnly": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rikoriswandha/adonisjs-xendit.git"
+  },
+  "homepage": "https://github.com/rikoriswandha/adonisjs-xendit#readme",
+  "bugs": {
+    "url": "https://github.com/rikoriswandha/adonisjs-xendit/issues"
+  },
   "keywords": [
     "adonisjs",
+    "adonis",
     "xendit",
     "payment",
+    "payment-gateway",
+    "fintech",
     "indonesia",
-    "gateway"
+    "virtual-account",
+    "ewallet",
+    "qris",
+    "invoice",
+    "disbursement",
+    "credit-card",
+    "direct-debit"
   ],
   "author": "Riko Riswandha <rikoriswandha@gmail.com>",
   "license": "MIT",
@@ -82,6 +99,7 @@
       "./index.ts",
       "./configure.ts",
       "./providers/xendit_provider.ts",
+      "./src/types.ts",
       "./src/xendit_exception.ts"
     ],
     "outDir": "./build",
