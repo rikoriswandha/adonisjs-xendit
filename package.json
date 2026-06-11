@@ -1,38 +1,61 @@
 {
   "name": "adonisjs-xendit",
   "description": "AdonisJS v7 package for Xendit payment gateway integration",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=20.0.0"
   },
   "type": "module",
   "files": [
     "build",
     "!build/bin",
-    "!build/tests"
+    "!build/tests",
+    "!build/**/*.map",
+    "LICENSE.md",
+    "README.md",
+    "CHANGELOG.md"
   ],
   "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
   "exports": {
-    ".": "./build/index.js",
-    "./types": "./build/src/types.js",
-    "./xendit_provider": "./build/providers/xendit_provider.js",
-    "./errors": "./build/src/xendit_exception.js"
+    ".": {
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
+    },
+    "./types": {
+      "types": "./build/src/types.d.ts",
+      "default": "./build/src/types.js"
+    },
+    "./xendit_provider": {
+      "types": "./build/providers/xendit_provider.d.ts",
+      "default": "./build/providers/xendit_provider.js"
+    },
+    "./errors": {
+      "types": "./build/src/xendit_exception.d.ts",
+      "default": "./build/src/xendit_exception.js"
+    }
   },
   "scripts": {
     "copy:templates": "copyfiles \"stubs/**/*.stub\" build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "quick:test": "node --import=@poppinss/ts-exec --enable-source-maps bin/test.ts",
     "pretest": "npm run build",
     "test": "c8 npm run quick:test",
+    "test:quick": "npm run quick:test",
     "precompile": "npm run lint",
     "compile": "tsdown && tsc --emitDeclarationOnly --declaration",
     "postcompile": "npm run copy:templates",
     "build": "npm run compile",
+    "clean": "rm -rf build coverage",
     "release": "release-it",
+    "release:preview": "release-it --dry-run",
     "version": "npm run build",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build && npm run test"
   },
   "repository": {
     "type": "git",
@@ -56,10 +79,16 @@
     "invoice",
     "disbursement",
     "credit-card",
-    "direct-debit"
+    "direct-debit",
+    "payment-provider",
+    "typescript"
   ],
   "author": "Riko Riswandha <rikoriswandha@gmail.com>",
   "license": "MIT",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/rikoriswandha"
+  },
   "devDependencies": {
     "@adonisjs/assembler": "^8.0.0",
     "@adonisjs/core": "^7.0.1",
@@ -71,7 +100,7 @@
     "@japa/runner": "^5.3.0",
     "@poppinss/ts-exec": "^1.4.4",
     "@release-it/conventional-changelog": "^10.0.5",
-    "@types/node": "^25.3.5",
+    "@types/node": "^22.0.0",
     "c8": "^11.0.0",
     "copyfiles": "^2.4.1",
     "cross-env": "^10.1.0",
@@ -92,7 +121,8 @@
   },
   "publishConfig": {
     "access": "public",
-    "provenance": true
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
   },
   "tsdown": {
     "entry": [
@@ -109,7 +139,7 @@
     "fixedExtension": false,
     "dts": false,
     "treeshake": false,
-    "sourcemaps": false,
+    "sourcemaps": true,
     "target": "esnext"
   },
   "release-it": {
@@ -126,7 +156,7 @@
     },
     "npm": {
       "publish": true,
-      "skipChecks": true
+      "skipChecks": false
     },
     "plugins": {
       "@release-it/conventional-changelog": {
@@ -139,11 +169,20 @@
   "c8": {
     "reporter": [
       "text",
-      "html"
+      "html",
+      "lcov"
     ],
     "exclude": [
-      "tests/**"
-    ]
+      "tests/**",
+      "bin/**",
+      "build/**",
+      "coverage/**",
+      "stubs/**"
+    ],
+    "lines": 80,
+    "functions": 80,
+    "branches": 70,
+    "statements": 80
   },
   "prettier": "@adonisjs/prettier-config"
 }

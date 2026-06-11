@@ -46,6 +46,14 @@ export class XenditHttpClient {
   }
 
   async request<T>(method: string, path: string, options?: XenditRequestOptions): Promise<T> {
+    return this.#requestWithRetry<T>(method, path, options)
+  }
+
+  async #requestWithRetry<T>(
+    method: string,
+    path: string,
+    options?: XenditRequestOptions
+  ): Promise<T> {
     const url = `${this.#baseUrl}${path}`
     const headers = new Headers({
       'Authorization': this.#authHeader(),
@@ -78,6 +86,8 @@ export class XenditHttpClient {
       const json = await this.#safeParseJson(response)
       return json as T
     } catch (error) {
+      clearTimeout(timeoutId)
+
       if (error instanceof Error && error.name === 'AbortError') {
         throw new XenditNetworkError('TIMEOUT', `Request timed out after ${this.#timeoutMs}ms`)
       }
@@ -97,8 +107,6 @@ export class XenditHttpClient {
         'NETWORK_ERROR',
         error instanceof Error ? error.message : 'Network request failed'
       )
-    } finally {
-      clearTimeout(timeoutId)
     }
   }
 

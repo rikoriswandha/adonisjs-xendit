@@ -9,3 +9,9 @@ dist
 package-lock.json
 .sisyphus/
 codedb.snapshot
+*.tgz
+.env
+.env.local
+.env.*.local
+tmp/
+temp/

@@ -82,7 +82,7 @@ test.group('XenditHttpClient', (group) => {
     await client.request('GET', '/v2/invoices/test')
 
     assert.equal(capturedRequest.headers.get('xendit-lib'), 'adonisjs')
-    assert.equal(capturedRequest.headers.get('xendit-lib-ver'), '0.1.0')
+    assert.equal(capturedRequest.headers.get('xendit-lib-ver'), '1.0.0')
   })
 
   test('send idempotency-key header when provided', async ({ assert }) => {
@@ -447,5 +447,30 @@ test.group('XenditHttpClient', (group) => {
 
     await client.request('GET', '/v2/invoices')
     assert.isDefined(capturedInit?.signal)
+  })
+
+  test('do not retry on 4xx client errors', async ({ assert }) => {
+    let callCount = 0
+    globalThis.fetch = async () => {
+      callCount++
+      return new Response(
+        JSON.stringify({ error_code: 'API_VALIDATION_ERROR', message: 'Bad request' }),
+        { status: 400, headers: { 'content-type': 'application/json' } }
+      )
+    }
+
+    const client = new XenditHttpClient({
+      baseUrl: 'https://api.xendit.co',
+      secretKey: 'xnd_test_123',
+    })
+
+    try {
+      await client.request('POST', '/v2/invoices')
+      assert.fail('should have thrown')
+    } catch (error) {
+      assert.instanceOf(error, XenditValidationError)
+      assert.equal(error.status, 400)
+      assert.equal(callCount, 1)
+    }
   })
 })
