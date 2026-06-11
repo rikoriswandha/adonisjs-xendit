@@ -1,6 +1,6 @@
-# Contributing to adonisjs-xendit
+# Contributing to @rikology/adonisjs-xendit
 
-Thank you for your interest in contributing to adonisjs-xendit! We welcome contributions from the community.
+Thank you for your interest in contributing to @rikology/adonisjs-xendit! We welcome contributions from the community.
 
 ## Development Setup
 

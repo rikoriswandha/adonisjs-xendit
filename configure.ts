@@ -21,7 +21,8 @@ import type Configure from '@adonisjs/core/commands/configure'
 const stubsRoot = join(dirname(fileURLToPath(import.meta.url)), 'stubs')
 
 /**
- * Configures the adonisjs-xendit package
+ * Configures the @rikology/adonisjs-xendit package
+
  */
 export async function configure(command: Configure) {
   const codemods = await command.createCodemods()
@@ -80,7 +81,7 @@ export async function configure(command: Configure) {
    * Register provider
    */
   await codemods.updateRcFile((rcFile) => {
-    rcFile.addProvider('adonisjs-xendit/xendit_provider')
+    rcFile.addProvider('@rikology/adonisjs-xendit/xendit_provider')
   })
 
   command.logger.success('Xendit package configured successfully')

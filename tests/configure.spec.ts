@@ -47,13 +47,13 @@ test.group('Configure', (group) => {
 
     await assert.fileExists('config/xendit.ts')
     await assert.fileContains('config/xendit.ts', [
-      `import { defineConfig } from 'adonisjs-xendit'`,
+      `import { defineConfig } from '@rikology/adonisjs-xendit'`,
       `secretKey: env.get('XENDIT_SECRET_KEY')`,
       `environment: env.get('XENDIT_ENVIRONMENT', 'sandbox')`,
       `callbackToken: env.get('XENDIT_CALLBACK_TOKEN')`,
       `timeoutMs: 30000`,
     ])
-    await assert.fileContains('adonisrc.ts', 'adonisjs-xendit/xendit_provider')
+    await assert.fileContains('adonisrc.ts', '@rikology/adonisjs-xendit/xendit_provider')
     await assert.fileContains('.env', 'XENDIT_SECRET_KEY')
     await assert.fileContains('.env', 'XENDIT_ENVIRONMENT=sandbox')
     await assert.fileContains('.env', 'XENDIT_CALLBACK_TOKEN')

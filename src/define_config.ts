@@ -24,7 +24,7 @@ import type { XenditConfig } from './types.ts'
  *
  * @example
  * ```ts
- * import { defineConfig } from 'adonisjs-xendit'
+ * import { defineConfig } from '@rikology/adonisjs-xendit'
  *
  * export default defineConfig({
  *   secretKey: env.get('XENDIT_SECRET_KEY'),

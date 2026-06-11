@@ -1,5 +1,5 @@
 {
-  "name": "adonisjs-xendit",
+  "name": "@rikology/adonisjs-xendit",
   "description": "AdonisJS v7 package for Xendit payment gateway integration",
   "version": "1.0.0",
   "engines": {

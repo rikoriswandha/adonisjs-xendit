@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within adonisjs-xendit, please send an email to [rikoriswandha@gmail.com](mailto:rikoriswandha@gmail.com).
+If you discover a security vulnerability within @rikology/adonisjs-xendit, please send an email to [rikoriswandha@gmail.com](mailto:rikoriswandha@gmail.com).
 
 Please do NOT open public issues for security vulnerabilities.
 
