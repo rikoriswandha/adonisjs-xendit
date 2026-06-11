@@ -1,4 +1,7 @@
 import { test } from '@japa/runner'
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
+const { version: packageVersion } = require('../package.json')
 import { XenditHttpClient } from '../src/http_client.ts'
 import {
   XenditAuthenticationError,
@@ -82,7 +85,7 @@ test.group('XenditHttpClient', (group) => {
     await client.request('GET', '/v2/invoices/test')
 
     assert.equal(capturedRequest.headers.get('xendit-lib'), 'adonisjs')
-    assert.equal(capturedRequest.headers.get('xendit-lib-ver'), '1.0.0')
+    assert.equal(capturedRequest.headers.get('xendit-lib-ver'), packageVersion)
   })
 
   test('send idempotency-key header when provided', async ({ assert }) => {
