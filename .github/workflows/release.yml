@@ -11,7 +11,7 @@ on:
       provenance:
         description: 'Generate npm provenance attestation'
         required: false
-        default: true
+        default: false
         type: boolean
 
 permissions:
