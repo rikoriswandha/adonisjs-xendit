@@ -842,7 +842,9 @@ export type XenditWebhookEventName =
   | 'recurring_payment.stopped'
   | 'payment_method.activated'
   | 'payment_method.expired'
-
+  | 'payment.succeeded'
+  | 'payment.failed'
+  | 'payment.callback'
 export interface XenditWebhookEvent {
   event: XenditWebhookEventName
   data: Record<string, unknown>

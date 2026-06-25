@@ -142,17 +142,17 @@ test.group('Package E2E', () => {
     assert.isDefined(manager.balance())
   })
 
-  test('XenditWebhook verify and parseEvent are functional', async ({ assert }) => {
+  test('XenditWebhook verifyCallbackToken and parseEvent are functional', async ({ assert }) => {
     const { XenditWebhook } = await import('../../build/index.js')
 
-    assert.isFunction(XenditWebhook.verify)
+    assert.isFunction(XenditWebhook.verifyCallbackToken)
     assert.isFunction(XenditWebhook.parseEvent)
 
     const payload = JSON.stringify({ event: 'invoice.paid', data: { id: '123' } })
     const event = XenditWebhook.parseEvent(payload)
     assert.deepEqual(event, { event: 'invoice.paid', data: { id: '123' } })
 
-    const result = XenditWebhook.verify(payload, 'token', 'wrong-sig')
+    const result = XenditWebhook.verifyCallbackToken('wrong-token', 'token')
     assert.isFalse(result)
   })
 

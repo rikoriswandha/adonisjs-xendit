@@ -414,43 +414,59 @@ const taxBalance = await xendit.balance().getByAccountType('TAX')
 import { XenditWebhook } from '@rikology/adonisjs-xendit'
 
 export default class WebhooksController {
-  async handle(req: HttpContext) {
-    const callbackToken = process.env.XENDIT_CALLBACK_TOKEN!
-    const signature = req.request.header('x-callback-token')!
-    const payload = JSON.stringify(req.request.all())
+  async handle({ request, response }: HttpContext) {
+    const callbackToken = env.get('XENDIT_CALLBACK_TOKEN')
+    const receivedToken = request.header('x-callback-token') ?? ''
 
-    // Verify callback token
-    if (!XenditWebhook.verify(payload, callbackToken, signature)) {
-      return req.response.forbidden('Invalid callback token')
+    // Verify callback token (constant-time comparison)
+    if (!XenditWebhook.verifyCallbackToken(receivedToken, callbackToken)) {
+      return response.status(200).json({ error: 'invalid_token' })
     }
 
-    // Parse and validate payload
-    const event = XenditWebhook.parseEvent(payload)
+    // Parse payload — handles both envelope ({ event, data }) and flat (QRIS, e-wallet, VA) formats
+    const rawBody = request.raw() ?? JSON.stringify(request.body())
+    const event = XenditWebhook.parseEvent(rawBody)
 
     // Process based on event type
     switch (event.event) {
       case 'invoice.paid':
         // Handle paid invoice
-        console.log('Invoice paid:', event.data)
         break
-      case 'invoice.expired':
-        // Handle expired invoice
-        console.log('Invoice expired:', event.data)
+      case 'payment.succeeded':
+        // Handle flat QRIS/e-wallet payment success
+        // event.data contains the full flat payload (external_id, status, amount, etc.)
         break
-      case 'va.paid':
-        // Handle VA payment
-        console.log('VA paid:', event.data)
+      case 'payment.failed':
+        // Handle flat payment failure (EXPIRED, FAILED)
         break
       case 'disbursement.completed':
-        // Handle completed disbursement
-        console.log('Disbursement completed:', event.data)
+        // Handle completed disbursement (envelope or flat)
         break
       default:
-        console.log('Unhandled event:', event.event)
+        // Unhandled event — still return 200
     }
+
+    return response.status(200).json({ received: true })
   }
 }
 ```
+
+### Webhook Payload Formats
+
+Xendit sends two callback shapes:
+
+1. **Envelope** — `{ event, data }` (Payment Request API, invoice webhooks)
+2. **Flat** — the resource itself with no envelope (QR code, e-wallet, VA, disbursement)
+
+`parseEvent()` normalises flat payloads into the envelope shape by wrapping the
+flat object in `data` and inferring an `event` name:
+
+| Flat `status` | Flat `id` prefix | Inferred `event` |
+|---------------|-------------------|------------------|
+| `PAID`, `SETTLED`, `SUCCEEDED` | — | `payment.succeeded` |
+| `EXPIRED`, `FAILED` | — | `payment.failed` |
+| any | `disb_` | `disbursement.completed` or `disbursement.failed` |
+| other | — | `payment.callback` |
 
 ## Error Handling
 
