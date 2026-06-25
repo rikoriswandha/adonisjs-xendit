@@ -83,7 +83,7 @@ export default defineConfig({
 | Option | Required | Description |
 |--------|----------|-------------|
 | `secretKey` | Yes | Your Xendit API secret key |
-| `environment` | Yes | `sandbox` or `production` |
+| `environment` | Yes | `sandbox` or `production` (label only; both use the same API endpoint — the key determines test vs. live) |
 | `callbackToken` | No | Token for webhook callback verification |
 | `timeoutMs` | No | HTTP request timeout (default: 30000ms) |
 

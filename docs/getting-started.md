@@ -96,6 +96,8 @@ XENDIT_SECRET_KEY=xnd_development_...
 XENDIT_ENVIRONMENT=sandbox
 ```
 
+> Both sandbox and production use the same API endpoint (`https://api.xendit.co`). The `environment` field is a declarative label; the actual mode (test vs. live) is determined by your API key — `xnd_development_...` for test mode, `xnd_production_...` for live mode.
+
 ### Production
 
 For production, use your live API key:

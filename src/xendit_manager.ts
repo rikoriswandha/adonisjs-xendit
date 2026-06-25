@@ -10,17 +10,20 @@ import { QrisClient } from './clients/qris_client.ts'
 import { RetailOutletClient } from './clients/retail_outlet_client.ts'
 import { VirtualAccountClient } from './clients/va_client.ts'
 
-const BASE_URLS: Record<string, string> = {
-  sandbox: 'https://sandbox-api.xendit.co',
-  production: 'https://api.xendit.co',
-}
+/**
+ * Both sandbox (test) and production environments use the same API URL.
+ * The environment is determined by the API key, not the endpoint:
+ *   - xnd_development_... → test mode
+ *   - xnd_production_...  → live mode
+ */
+const BASE_URL = 'https://api.xendit.co'
 
 export class XenditManager {
   readonly #http: XenditHttpClient
   readonly #clients = new Map<string, unknown>()
 
   constructor(config: XenditConfig) {
-    const baseUrl = BASE_URLS[config.environment]
+    const baseUrl = BASE_URL
 
     this.#http = new XenditHttpClient({
       baseUrl,

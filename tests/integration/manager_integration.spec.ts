@@ -59,8 +59,8 @@ test.group('XenditManager Integration', () => {
       assert.lengthOf(calls, 3)
       for (const call of calls) {
         assert.isTrue(
-          call.url.startsWith('https://sandbox-api.xendit.co'),
-          `Expected sandbox base URL, got: ${call.url}`
+          call.url.startsWith('https://api.xendit.co'),
+          `Expected API base URL, got: ${call.url}`
         )
       }
     } finally {
