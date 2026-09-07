@@ -35,10 +35,12 @@ npm run typecheck
 ### Code Style
 
 This project uses:
+
 - **ESLint** for linting (with `@adonisjs/eslint-config`)
 - **Prettier** for code formatting (with `@adonisjs/prettier-config`)
 
 Please ensure your code passes linting before submitting:
+
 ```bash
 npm run lint
 npm run format:check
@@ -58,6 +60,7 @@ We follow the [Conventional Commits](https://www.conventionalcommits.org/) speci
 - `chore:` - Build process or auxiliary tool changes
 
 Example:
+
 ```bash
 git commit -m "feat: add retry logic for failed requests"
 ```
@@ -73,6 +76,7 @@ git commit -m "feat: add retry logic for failed requests"
 ## Reporting Issues
 
 When reporting issues, please include:
+
 - Node.js version
 - AdonisJS version
 - Steps to reproduce
@@ -86,6 +90,7 @@ Please do not report security issues publicly. Instead, email [rikoriswandha@gma
 ## Code of Conduct
 
 This project adheres to a code of conduct. By participating, you are expected to uphold this code:
+
 - Be respectful and inclusive
 - Welcome newcomers
 - Focus on constructive feedback
