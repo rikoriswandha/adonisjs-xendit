@@ -84,7 +84,6 @@ export class XenditHttpClient {
       const json = await this.#safeParseJson(response)
       return json as T
     } catch (error) {
-
       if (error instanceof Error && error.name === 'AbortError') {
         throw new XenditNetworkError('TIMEOUT', `Request timed out after ${this.#timeoutMs}ms`)
       }
