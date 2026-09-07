@@ -76,8 +76,6 @@ export class XenditHttpClient {
         signal: controller.signal,
       })
 
-      clearTimeout(timeoutId)
-
       if (!response.ok) {
         const errorBody = await this.#safeParseJson(response)
         throw this.#mapError(response.status, errorBody)
@@ -86,7 +84,6 @@ export class XenditHttpClient {
       const json = await this.#safeParseJson(response)
       return json as T
     } catch (error) {
-      clearTimeout(timeoutId)
 
       if (error instanceof Error && error.name === 'AbortError') {
         throw new XenditNetworkError('TIMEOUT', `Request timed out after ${this.#timeoutMs}ms`)
@@ -107,6 +104,8 @@ export class XenditHttpClient {
         'NETWORK_ERROR',
         error instanceof Error ? error.message : 'Network request failed'
       )
+    } finally {
+      clearTimeout(timeoutId)
     }
   }
 
@@ -155,7 +154,8 @@ export class XenditHttpClient {
 
     try {
       return (await response.json()) as XenditApiError
-    } catch {
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') throw error
       return null
     }
   }

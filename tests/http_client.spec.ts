@@ -477,3 +477,27 @@ test.group('XenditHttpClient', (group) => {
     }
   })
 })
+
+test('timeout covers reading the response body', async ({ assert }) => {
+  const originalFetch = globalThis.fetch
+  globalThis.fetch = async (_input, init) => {
+    const body = new ReadableStream({
+      start(controller) {
+        init!.signal!.addEventListener('abort', () => {
+          controller.error(new DOMException('Aborted', 'AbortError'))
+        })
+      },
+    })
+    return new Response(body, { headers: { 'content-type': 'application/json' } })
+  }
+  try {
+    const client = new XenditHttpClient({
+      baseUrl: 'https://api.xendit.co',
+      secretKey: 'test',
+      timeoutMs: 20,
+    })
+    await assert.rejects(() => client.request('GET', '/test'), 'timed out')
+  } finally {
+    globalThis.fetch = originalFetch
+  }
+}).timeout(1000)
