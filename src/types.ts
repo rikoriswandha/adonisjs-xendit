@@ -26,8 +26,8 @@ export interface XenditMetadata {
   [key: string]: string | number | boolean | null | undefined
 }
 
-export type XenditCurrency = 'IDR' | 'PHP' | 'USD' | 'VND' | 'THB' | 'MYR' | 'SGD' | 'EUR' | 'GBP' | 'HKD'
-  | 'AUD'
+export type XenditCurrency =
+  'IDR' | 'PHP' | 'USD' | 'VND' | 'THB' | 'MYR' | 'SGD' | 'EUR' | 'GBP' | 'HKD' | 'AUD'
 
 export type XenditCountry = 'ID' | 'PH' | 'VN' | 'TH' | 'MY'
 
@@ -492,8 +492,8 @@ export interface UpdateRetailOutletRequest {
 // 6. Credit Card
 // -------------------------------------------------------------------------
 
-export type CreditCardStatus = 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'REVERSED' | 'REFUNDED' | 'VOIDED'
-  | 'AUTHORIZED'
+export type CreditCardStatus =
+  'PENDING' | 'SUCCEEDED' | 'FAILED' | 'REVERSED' | 'REFUNDED' | 'VOIDED' | 'AUTHORIZED'
 
 export interface CreateCreditCardChargeRequest {
   token_id: string
