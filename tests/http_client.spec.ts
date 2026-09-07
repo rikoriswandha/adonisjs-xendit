@@ -496,7 +496,7 @@ test('timeout covers reading the response body', async ({ assert }) => {
       secretKey: 'test',
       timeoutMs: 20,
     })
-    await assert.rejects(() => client.request('GET', '/test'), 'timed out')
+    await assert.rejects(() => client.request('GET', '/test'), /timed out/)
   } finally {
     globalThis.fetch = originalFetch
   }
