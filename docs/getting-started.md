@@ -6,7 +6,7 @@ This guide will help you get up and running with `@rikology/adonisjs-xendit` in 
 
 Before you begin, make sure you have:
 
-- Node.js >= 20.0.0 installed
+- Node.js >= 24.0.0 installed
 - An AdonisJS v7 application
 - A Xendit account (sign up at [xendit.co](https://www.xendit.co/))
 
