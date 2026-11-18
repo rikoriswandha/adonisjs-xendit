@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@rikology/adonisjs-xendit.svg?style=flat-square)](https://www.npmjs.com/package/@rikology/adonisjs-xendit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg?style=flat-square)](https://nodejs.org/)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen.svg?style=flat-square)](https://nodejs.org/)
 [![AdonisJS Version](https://img.shields.io/badge/AdonisJS-v7-blue.svg?style=flat-square)](https://adonisjs.com/)
 
 AdonisJS v7 package for [Xendit](https://www.xendit.co/) payment gateway integration. Provides a typed, idiomatic wrapper around Xendit's API with support for invoices, virtual accounts, e-wallets, QRIS, retail outlets, credit cards, direct debit, disbursements, and balance queries.
@@ -527,7 +527,7 @@ See `src/types.ts` for the complete type definitions.
 
 ## Requirements
 
-- Node.js >= 20.0.0
+- Node.js >= 24.0.0
 - AdonisJS v7
 
 ## Changelog

@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Breaking Changes
+
+- **Minimum Node.js version raised to 24.** `engines.node` is now `>=24.0.0` (was `>=20.0.0`), matching the Node 24 requirement of `@adonisjs/core` v7. Projects on Node 20 or 22 must upgrade before installing this version. README, getting-started docs, and CI (lint, typecheck, tests, release) now target Node 24.
+
 ## [1.1.0] - 2026-06-25
 
 ### Fixed
