@@ -17,7 +17,9 @@ function inferFlatEvent(payload: Record<string, unknown>): string {
 
   // Disbursement callbacks carry an `id` prefixed with "disb_"
   if (typeof payload.id === 'string' && payload.id.startsWith('disb_')) {
-    return status === 'FAILED' ? 'disbursement.failed' : 'disbursement.completed'
+    if (status === 'FAILED') return 'disbursement.failed'
+    if (status === 'COMPLETED') return 'disbursement.completed'
+    return 'payment.callback'
   }
 
   // QR code / e-wallet / payment-request flat callbacks carry `payment_method`

@@ -60,6 +60,7 @@ node ace configure @rikology/adonisjs-xendit
 ```
 
 The configure command will:
+
 - Prompt for your Xendit secret key
 - Generate `config/xendit.ts`
 - Add `XENDIT_SECRET_KEY`, `XENDIT_ENVIRONMENT`, and `XENDIT_CALLBACK_TOKEN` to `.env`
@@ -80,12 +81,12 @@ export default defineConfig({
 })
 ```
 
-| Option | Required | Description |
-|--------|----------|-------------|
-| `secretKey` | Yes | Your Xendit API secret key |
-| `environment` | Yes | `sandbox` or `production` (label only; both use the same API endpoint — the key determines test vs. live) |
-| `callbackToken` | No | Token for webhook callback verification |
-| `timeoutMs` | No | HTTP request timeout (default: 30000ms) |
+| Option          | Required | Description                                                                                               |
+| --------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `secretKey`     | Yes      | Your Xendit API secret key                                                                                |
+| `environment`   | Yes      | `sandbox` or `production` (label only; both use the same API endpoint — the key determines test vs. live) |
+| `callbackToken` | No       | Token for webhook callback verification                                                                   |
+| `timeoutMs`     | No       | HTTP request timeout (default: 30000ms)                                                                   |
 
 ## Usage
 
@@ -117,15 +118,15 @@ export default class PaymentsController {
 ```ts
 const manager = new XenditManager(config)
 
-manager.invoice()        // InvoiceClient
-manager.va()             // VirtualAccountClient
-manager.ewallet()        // EWalletClient
-manager.qris()           // QrisClient
-manager.retailOutlet()   // RetailOutletClient
-manager.creditCard()     // CreditCardClient
-manager.directDebit()    // DirectDebitClient
-manager.disbursement()   // DisbursementClient
-manager.balance()        // BalanceClient
+manager.invoice() // InvoiceClient
+manager.va() // VirtualAccountClient
+manager.ewallet() // EWalletClient
+manager.qris() // QrisClient
+manager.retailOutlet() // RetailOutletClient
+manager.creditCard() // CreditCardClient
+manager.directDebit() // DirectDebitClient
+manager.disbursement() // DisbursementClient
+manager.balance() // BalanceClient
 ```
 
 ### Invoice
@@ -146,9 +147,7 @@ const invoice = await xendit.invoice().create({
     email: 'john@example.com',
     mobile_number: '+6281234567890',
   },
-  items: [
-    { name: 'Product A', quantity: 1, price: 50000 },
-  ],
+  items: [{ name: 'Product A', quantity: 1, price: 50000 }],
   success_redirect_url: 'https://example.com/success',
   failure_redirect_url: 'https://example.com/failure',
 })
@@ -443,7 +442,7 @@ export default class WebhooksController {
         // Handle completed disbursement (envelope or flat)
         break
       default:
-        // Unhandled event — still return 200
+      // Unhandled event — still return 200
     }
 
     return response.status(200).json({ received: true })
@@ -461,12 +460,12 @@ Xendit sends two callback shapes:
 `parseEvent()` normalises flat payloads into the envelope shape by wrapping the
 flat object in `data` and inferring an `event` name:
 
-| Flat `status` | Flat `id` prefix | Inferred `event` |
-|---------------|-------------------|------------------|
-| `PAID`, `SETTLED`, `SUCCEEDED` | — | `payment.succeeded` |
-| `EXPIRED`, `FAILED` | — | `payment.failed` |
-| any | `disb_` | `disbursement.completed` or `disbursement.failed` |
-| other | — | `payment.callback` |
+| Flat `status`                  | Flat `id` prefix | Inferred `event`                                  |
+| ------------------------------ | ---------------- | ------------------------------------------------- |
+| `PAID`, `SETTLED`, `SUCCEEDED` | —                | `payment.succeeded`                               |
+| `EXPIRED`, `FAILED`            | —                | `payment.failed`                                  |
+| any                            | `disb_`          | `disbursement.completed` or `disbursement.failed` |
+| other                          | —                | `payment.callback`                                |
 
 ## Error Handling
 
@@ -487,15 +486,15 @@ try {
 
 ### Error Types
 
-| Error Class | Status Code | Description |
-|-------------|-------------|-------------|
-| `XenditValidationError` | 400 | Invalid request parameters |
-| `XenditAuthenticationError` | 401 | Invalid API key |
-| `XenditNotFoundError` | 404 | Resource not found |
-| `XenditConflictError` | 409 | Duplicate external ID |
-| `XenditRateLimitError` | 429 | Rate limit exceeded |
-| `XenditServerError` | 500 | Xendit server error |
-| `XenditNetworkError` | 0 | Network/timeout error |
+| Error Class                 | Status Code | Description                |
+| --------------------------- | ----------- | -------------------------- |
+| `XenditValidationError`     | 400         | Invalid request parameters |
+| `XenditAuthenticationError` | 401         | Invalid API key            |
+| `XenditNotFoundError`       | 404         | Resource not found         |
+| `XenditConflictError`       | 409         | Duplicate external ID      |
+| `XenditRateLimitError`      | 429         | Rate limit exceeded        |
+| `XenditServerError`         | 500         | Xendit server error        |
+| `XenditNetworkError`        | 0           | Network/timeout error      |
 
 ## Exported Types
 

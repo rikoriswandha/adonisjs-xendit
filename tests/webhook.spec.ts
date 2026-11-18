@@ -250,3 +250,10 @@ test.group('XenditWebhook.parseEvent — error cases', () => {
     assert.throws(() => XenditWebhook.parseEvent(JSON.stringify(null)), TypeError)
   })
 })
+
+test('pending disbursements are not reported as completed', ({ assert }) => {
+  for (const status of ['PENDING', 'ACCEPTED', undefined]) {
+    const event = XenditWebhook.parseEvent(JSON.stringify({ id: 'disb_pending', status }))
+    assert.equal(event.event, 'payment.callback')
+  }
+})
